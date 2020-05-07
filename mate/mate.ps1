@@ -358,7 +358,7 @@ Write-Host "##   [1] - Set Working Directories & Load Techniques                
 Write-Host "##   [2] - List All Loaded Techniques                                                                   ##" -ForegroundColor Yellow
 Write-Host "##   [3] - List Specific Technique & Information                                                        ##" -ForegroundColor Yellow
 Write-Host "##   [4] - Invoke Specific Test                                                                         ##" -ForegroundColor Yellow
-Write-Host "##   [5] - Launch Dragonfly 2.0                                                                         ##" -ForegroundColor Yellow
+Write-Host "##   [5] - Launch All tests                                                                             ##" -ForegroundColor Yellow
 Write-Host "##   [q] - Quit                                                                                         ##" -ForegroundColor Yellow
 Write-Host "##########################################################################################################" -ForegroundColor Yellow
 }
