@@ -242,34 +242,26 @@ function Invoke-Atests($values) {
 # Launch DragonFly 2.0 techniques 
 function Launch-Alltests($values) 
 {
-	try 
-    { 
+	try { 
         $val = Test-Path $values[0]
-		foreach ($techCode in $AtomicTests.keys) 
-
-        {
+		foreach ($techCode in $AtomicTests.keys) {
             
 			$counter++
-            $OutputFP = $values[1]
-		    Write-Host "`nListing $technum MITRE ATT@CK Technique & Description`n"  -Foreground Green
-		    #Write-Host $techCode $AtomicTests.$techCode.display_name "`n" -Foreground Magenta
-		    if ($AtomicTests.$techCode.atomic_tests.executor_cmd) 
-            {
+            		$OutputFP = $values[1]
+		    	Write-Host "`nListing $technum MITRE ATT@CK Technique & Description`n"  -Foreground Green
+		    	#Write-Host $techCode $AtomicTests.$techCode.display_name "`n" -Foreground Magenta
+		    	if ($AtomicTests.$techCode.atomic_tests.executor_cmd) {
 			    Write-Host $AtomicTests.$techCode.atomic_tests.executor_cmd.name -Foreground Cyan 
-			    if ($AtomicTests.$techCode.atomic_tests.executor_cmd.name.Contains('command_prompt')) 
-                {
-				    foreach ($atest in $AtomicTests.$techCode.atomic_tests.executor_cmd.command -split "\n") 
-                    {
+			    if ($AtomicTests.$techCode.atomic_tests.executor_cmd.name.Contains('command_prompt')) {
+				    foreach ($atest in $AtomicTests.$techCode.atomic_tests.executor_cmd.command -split "\n") {
                         #Write "$atest $AtomicTests.$techCode"
-					    if (-Not ([string]::IsNullOrEmpty($atest))) 
-                        {
+					    if (-Not ([string]::IsNullOrEmpty($atest))) {
 						    Write-Host "Invoking Test --> " $atest -Foreground Green
 						    $command,$argument = $atest.split(" ",2)
 						    #Search for #{(any char(except linefeed),match 0 or more, lazy, grouped together)} string to determine if user input is required
 						    $matches = ($argument | Select-String '#{(.*?)}' -AllMatches | %{$_.Matches.Value})
 						    #if user input is required, prompt for required input
-						    foreach ($match in $matches) 
-                            {
+						    foreach ($match in $matches) {
 							    $cleanstr = $match.trimstart("#{")
 							    $clean = $cleanstr.trimend("}")
 							    Write-Host "Please provide input for the $clean attribute to continue " -Foreground Cyan
@@ -278,8 +270,7 @@ function Launch-Alltests($values)
 							    Write-Host $argument
 						    }	
 						    $ProcessDate = Get-Date -Format g
-						    if (-Not (Test-Path "$OutputFP\commandline.txt")) 
-                            {
+						    if (-Not (Test-Path "$OutputFP\commandline.txt")) {
 							    $NewFile = New-Item -Path "$OutputFP" -Name "commandline.txt" -ItemType "File" -Force
 						    }
 						    Write-Output "Date --> $ProcessDate" | Out-File -Append "$OutputFP\commandline.txt" 
